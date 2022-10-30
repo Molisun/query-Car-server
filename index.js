@@ -45,7 +45,7 @@ app.get('/list',function(request,response) {
             //data.length=1，即长度为1，直接简写
             if (data.length) {
                 //输入正确登录成功
-                response.send({code: 200, msg: '查询成功！'})
+                response.send({code: 200, msg: '查询成功！', result:data})
             } else {
                 //输入账号密码错误
                 response.send({code: 500, msg: '无此条记录'})
