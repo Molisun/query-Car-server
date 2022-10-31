@@ -9,14 +9,34 @@ app.use(cors());
 const mysql = require('mysql');
 
 //配置mysql访问方式
-const db = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    //你的mysql密码
-    password:'123456',
-    //你要连接的数据库
-    database:'querycar'
-});
+const db = ''
+
+//mysql自动重连
+function handleDisconnection() {
+    db = mysql.createConnection({
+        host: 'localhost',
+        user: 'root',  //用户名
+        password: '',   //密码
+        database: '',
+        port: '3306'     //端口号
+    })
+    db.connect(function (err) {
+        if (err) {
+            setTimeout('handleDisconnection()', 2000);
+        }
+    });
+
+    db.on('error', function (err) {
+        logger.error('db error', err);
+        if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+            logger.error('db error执行重连:' + err.message);
+            handleDisconnection();
+        } else {
+            throw err;
+        }
+    });
+}
+handleDisconnection();
 
 // 下面是接口 
 // http://127.0.0.1:3000/
