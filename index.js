@@ -14,11 +14,12 @@ const db = ''
 //mysql自动重连
 function handleDisconnection() {
     db = mysql.createConnection({
-        host: 'localhost',
-        user: 'root',  //用户名
-        password: '',   //密码
-        database: '',
-        port: '3306'     //端口号
+        host:'localhost',
+        user:'root',
+        //你的mysql密码
+        password:'19970622',
+        //你要连接的数据库
+        database:'querycar'
     })
     db.connect(function (err) {
         if (err) {
