@@ -90,7 +90,7 @@ app.get('/list',function(request,response) {
     //查询语句
     const sql = `select *
                  from warranty
-                 where carNumber = '${request.query.carNumber}'`
+                 where carNumber = '${request.query.carNumber}' AND identificationNumber = '${request.query.identificationNumber}'`
     //在数据库中查询，err是错误信息，data是查询后的结果以对象的形式返回
     db.query(sql, function (err, data) {
         if (err) {
